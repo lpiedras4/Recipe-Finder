@@ -2,6 +2,14 @@ body{
     background-color:rgb(245, 251, 230);
     font-family: "Roboto", sans-serif;
 }
+
+.mn-ctner{
+    width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  align-items: center;
+}
 header{
     text-align: center;
 }
@@ -10,9 +18,8 @@ header{
 }
 .search-container{
     display: flex;
-  margin-bottom: 2rem;
-  gap: 10px;
-  max-width: 500px;
-  margin-left: auto;
-  margin-right: auto;
+  
+}
+.hidden{
+    display: none;
 }
