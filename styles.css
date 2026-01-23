@@ -1,10 +1,35 @@
+/* choose one of the following */
+@plugin "flowbite/plugin";
+@source "../node_modules/flowbite";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import "flowbite/src/themes/default";
+
+/* MINIMAL THEME
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+@import "flowbite/src/themes/minimal";
+*/
+
+/* ENTERPRISE THEME
+@import url('https://fonts.googleapis.com/css2?family=Shantell+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+@import "flowbite/src/themes/enterprise";
+*/
+
+/* PLAYFUL THEME
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans+Code:ital,wght@0,300..800;1,300..800&display=swap');
+@import "flowbite/src/themes/playful";
+*/
+
+/* MONO THEME
+@import "flowbite/src/themes/mono";
+*/
+
 body{
     background-color:rgb(245, 251, 230);
     font-family: "Roboto", sans-serif;
 }
 
 .mn-ctner{
-    width: 100%;
+width: 100%;
   max-width: 1000px;
   margin: 0 auto;
   padding: 2rem 1rem;
@@ -18,7 +43,7 @@ header{
 }
 .search-container{
     display: flex;
-  
+  justify-content: center;
 }
 .hidden{
     display: none;
