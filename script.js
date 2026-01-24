@@ -1,14 +1,16 @@
-async function getData(name){
-    const url = "www.themealdb.com/api/json/v1/1/search.php?s={name}";
+const resultsGrid = document.getElementById("meals");
+async function searchMeals(keyword) {
     try{
-        const response = await fetch(url);
-        if(!response.ok){
-            throw new Error(`Response status: ${response.status}`);
+        resultsGrid.innerHTML('<p>Loading</p>');
+        const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${keyword}`);
+        if (!response.ok) {
+            throw new Error("Network response was not ok");
         }
-        const result = await response.json();
-        console.log(result);
-    }catch (error){
-        console.log(error.message);
+       const data = await response.json();
+       console.log(data);
+    }catch(error){
+        console.error('Error fetching meals: ', error);
+        resultsGrid.innerHTML ='<p> Sorry, something went wrong. Please try again </p>';
     }
 }
-getData();
+searchMeals("chicken".meals);
