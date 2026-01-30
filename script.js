@@ -1,4 +1,5 @@
 const resultsGrid = document.getElementById("meals");
+
 async function searchMeals(keyword) {
     try{
         resultsGrid.innerHTML('<p>Loading</p>');
@@ -7,10 +8,9 @@ async function searchMeals(keyword) {
             throw new Error("Network response was not ok");
         }
        const data = await response.json();
-       console.log(data);
     }catch(error){
         console.error('Error fetching meals: ', error);
-        resultsGrid.innerHTML ='<p> Sorry, something went wrong. Please try again </p>';
+        resultsGrid.innerHTML ='<p id="api-message-error"> Sorry, something went wrong. Please try again </p>';
     }
 }
 searchMeals("chicken".meals);

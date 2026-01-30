@@ -69,4 +69,6 @@ header{
 .hidden{
     display: none;
 }
-
+#api-message-error{
+    text-align: center;
+}
