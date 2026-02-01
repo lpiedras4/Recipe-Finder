@@ -72,3 +72,13 @@ header{
 #api-message-error{
     text-align: center;
 }
+.meal{
+    background-color: var(--card-bg);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition: var(--transition);
+  cursor: pointer;
+  position: relative;
+}
+
