@@ -1,5 +1,5 @@
+// dom elements
 const resultsGrid = document.getElementById("meals");
-const API_LINK = "https://www.themealdb.com/api/json/v1/1/search.php?";
 const searchInput = document.getElementById("search-input");
 const searchBtn = document.getElementById("search-button");
 const mealsContainer = document.getElementById("meals-container");
@@ -8,14 +8,24 @@ const errorContainer=document.getElementById("error-container");
 const mealDetails = document.getElementById("meal-details");
 const mealDetailsContent = document.querySelector("meal-details-content");
 
-async function searchMeals(keyword) {
+//api urls
+const API_LINK = "https://www.themealdb.com/api/json/v1/1/";
+const SEARCH_URL = `${API_LINK}search.php?f=`;
+const LOOKUP_URL=`${API_LINK}lookup.php?i=`;
+
+searchBtn.addEventListener("click",searchMeals);
+searchInput.addEventListener("keypress", (e)=>{
+    if(e.key === "Enter") searchMeals();
+});
+
+async function searchMeals() {
+    const searchTerm = searchInput.value;
+
     try{
-        resultsGrid.innerHTML='<p>Loading</p>';
-        const response = await fetch(API_LINK+`s=${keyword}`);
-        if (!response.ok) {
-            throw new Error("Network response was not ok");
-        }
+        resultsGrid.innerHTML=`<p>Searching for "${searchTerm}"...</p>`;
+        const response = await fetch(`${SEARCH_URL}${searchTerm}`);
        const data = await response.json();
+
        displayMeals(data.meals);
     }catch(error){
         console.error('Error fetching meals: ', error);
@@ -24,8 +34,9 @@ async function searchMeals(keyword) {
 }
 
 function displayMeals(meals){
+    mealsContainer.innerHTML="";
     //loop through meals and create an info card for each one
-    mealsContainer.innerHTML='';
+    
     meals.forEach((meal =>{
         mealsContainer.innerHTML+=`
         <div class="meal" data-meal-id="${meal.id}"> 
@@ -37,11 +48,32 @@ function displayMeals(meals){
         </div>
         `
     }));
-    //display meal details
+//display meal details
+async function handleClickMeal(e){
     mealDetailsContent.innerHTML = `
-    <imga src="${meal.strMealThumb}" alt="${meal.strMeal}" class = "meal-details-img">
-    <h2 class="meal-details-title"></h2>
-    `;
+        <img src="${meal.strMealThumb}" alt="${meal.strMeal}" class = "meal-details-img">
+        <h2 class="meal-details-title">${meal.strMeal}</h2>
+        <div class="meal-details-category">
+        <span>${meal.strCategory} || "Uncategorized" </span>
+        </div>
+        <div class="meal-details-instructions">
+            <h3>Ingredients</h3>    
+            <ul class="ingredients-list">
+            ${ingredients.map(
+            (item)=>`
+            <li><i class="fas fa-check-circle"></i> ${item.measure} ${item.ingredient}</li>
+            `
+            ).join("")}
+            </ul>
+        </div>
+        ${meal.strYoutube ? `<a href ="${meal.strYoutube}" target="_blank" class="youtbe-link">
+        <i class="fab fa-youtube"></i> Watch Video
+        </a>
+        `: ""
+        }
+        `;
+    }
+    
 
 
 }
