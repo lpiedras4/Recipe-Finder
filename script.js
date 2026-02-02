@@ -10,7 +10,7 @@ const mealDetailsContent = document.querySelector("meal-details-content");
 
 //api urls
 const API_LINK = "https://www.themealdb.com/api/json/v1/1/";
-const SEARCH_URL = `${API_LINK}search.php?f=`;
+const SEARCH_URL = `${API_LINK}search.php?s=`;
 const LOOKUP_URL=`${API_LINK}lookup.php?i=`;
 
 searchBtn.addEventListener("click", searchMeals);
@@ -20,11 +20,15 @@ searchInput.addEventListener("keypress", (e)=>{
 });
 
 async function searchMeals() {
-    const searchTerm = searchInput.value;
+    const searchTerm = searchInput.value.trim();
+
     try{
-        resultHeading.innerHTML=`<p>Searching for "${searchTerm}"...</p>`;
-        const response = await fetch(`${SEARCH_URL}${searchTerm}`);
-       const data = await response.json();
+
+    
+    resultHeading.innerHTML=`<p>Searching for "${searchTerm}"...</p>`;
+    //fetch meals from API
+    const response = await fetch(`${SEARCH_URL}${searchTerm}`);
+    const data = await response.json();
         if(data.meals===null){
         resultHeading.textContent="";
         mealsContainer.innerHTML="";
