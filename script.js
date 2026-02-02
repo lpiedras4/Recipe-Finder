@@ -23,8 +23,6 @@ async function searchMeals() {
     const searchTerm = searchInput.value.trim();
 
     try{
-
-    
     resultHeading.innerHTML=`<p>Searching for "${searchTerm}"...</p>`;
     //fetch meals from API
     const response = await fetch(`${SEARCH_URL}${searchTerm}`);
@@ -54,7 +52,7 @@ function displayMeals(meals){
     meals.forEach((meal =>{
         mealsContainer.innerHTML+=`
         <div class="meal" data-meal-id="${meal.id}"> 
-            <img src="${meal.strMealThumb} alt="${meal.strMeal}">
+            <img src="${meal.strMealThumb}" alt="${meal.strMeal}">
             <div class="meal-info"> 
             <h3 class="meal-title">${meal.strMeal}</h3>
             ${meal.strCategory ? `<div class="meal-category">${meal.strCategory}</div>` : ""}

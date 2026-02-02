@@ -66,17 +66,24 @@ header{
     margin-left:auto;
     margin-right:auto ;
 }
+
 .hidden{
     display: none;
 }
+
 .meal{
-    background-color: var(--card-bg);
-  border-radius: var(--border-radius);
-  box-shadow: var(--shadow);
+background-color: whitesmoke;
+  border-radius: 20px;
+  box-shadow: 5px 5px 5px grey;
   overflow: hidden;
-  transition: var(--transition);
+  transition:0s;
   cursor: pointer;
   position: relative;
+}
+
+.meal:hover{
+    transform: translateY(-5px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
 }
 
 .meals-container{
@@ -85,3 +92,39 @@ header{
     gap:1.5rem;
 }
 
+.meal img{
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+.meal-title{
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    color: black;
+    font-weight: bolder;
+}
+
+.meal-info{
+    padding: 1rem;
+}
+
+#result-heading{
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.2rem;
+    color: black;
+}
+
+.meal-category{
+    display: inline-block;
+    background-color: rgb(255, 206, 73);
+    color: black;
+    padding: 3px 8px;
+    font-size: 0.8rem;
+    border-radius: 20px;
+    margin-bottom: 10px;
+}
+
+#meal-details{
+
+}
