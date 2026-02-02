@@ -2,7 +2,7 @@
 const resultsGrid = document.getElementById("meals");
 const searchInput = document.getElementById("search-input");
 const searchBtn = document.getElementById("search-button");
-const mealsContainer = document.getElementById("meals-container");
+const mealsContainer = document.getElementById("meals");
 const resultHeading = document.getElementById("result-heading");
 const errorContainer=document.getElementById("error-container");
 const mealDetails = document.getElementById("meal-details");
@@ -13,28 +13,38 @@ const API_LINK = "https://www.themealdb.com/api/json/v1/1/";
 const SEARCH_URL = `${API_LINK}search.php?f=`;
 const LOOKUP_URL=`${API_LINK}lookup.php?i=`;
 
-searchBtn.addEventListener("click",searchMeals);
+searchBtn.addEventListener("click", searchMeals);
+
 searchInput.addEventListener("keypress", (e)=>{
     if(e.key === "Enter") searchMeals();
 });
 
 async function searchMeals() {
     const searchTerm = searchInput.value;
-
     try{
-        resultsGrid.innerHTML=`<p>Searching for "${searchTerm}"...</p>`;
+        resultHeading.innerHTML=`<p>Searching for "${searchTerm}"...</p>`;
         const response = await fetch(`${SEARCH_URL}${searchTerm}`);
        const data = await response.json();
+        if(data.meals===null){
+        resultHeading.textContent="";
+        mealsContainer.innerHTML="";
+        errorContainer.textContent=`No recipes found for "${searchTerm}". Try another search term!`;
+        errorContainer.classList.remove("hidden");
+        }else{
+            resultHeading.textContent=`Search results for "${searchTerm}":`;
+            displayMeals(data.meals);
+            searchInput.value="";
+        }
 
-       displayMeals(data.meals);
+       
     }catch(error){
         console.error('Error fetching meals: ', error);
-        resultsGrid.innerHTML ='<p id="api-message-error"> Sorry, something went wrong. Please try again </p>';
+        resultHeading.innerHTML ='<p> Sorry, something went wrong. Please try again </p>';
     }
 }
 
 function displayMeals(meals){
-    mealsContainer.innerHTML="";
+   mealsContainer.innerHTML="";
     //loop through meals and create an info card for each one
     
     meals.forEach((meal =>{
