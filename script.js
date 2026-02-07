@@ -19,6 +19,8 @@ searchInput.addEventListener("keypress", (e)=>{
     if(e.key === "Enter") searchMeals();
 });
 
+mealsContainer.addEventListener("click", handleClickMeal);
+
 async function searchMeals() {
     const searchTerm = searchInput.value.trim();
 
@@ -60,9 +62,30 @@ function displayMeals(meals){
         </div>
         `
     }));
+}
 //display meal details
 async function handleClickMeal(e){
-    mealDetailsContent.innerHTML = `
+    const mealEl = e.target.closest(".meal"); //closest() walks up the DOM tree and finds the nearest parent with the class ".meal"
+    if(!mealEl)return; //if .meal doesn´t exist, the function stops immediately
+
+    const mealId = mealEl.getAttribute("data-meal-id"); //this function gets the attribute meal ID for lookup
+
+    try{
+        const response = await fetch(`${LOOKUP_URL}${mealId}`);
+        const data = await response.json();
+
+        if(data.meals && data.meals[0]){ //if statement to ensure API returned meals and at least one meal exists
+            const meal = data.meals[0];
+
+            const ingredients = [];
+            for(let i= 0; i<=20 ;i++){
+                if(meal){
+
+                }
+            }
+        }
+
+         mealDetailsContent.innerHTML = `
         <img src="${meal.strMealThumb}" alt="${meal.strMeal}" class = "meal-details-img">
         <h2 class="meal-details-title">${meal.strMeal}</h2>
         <div class="meal-details-category">
@@ -84,8 +107,14 @@ async function handleClickMeal(e){
         `: ""
         }
         `;
+
+    }catch(error){
+
     }
+}
+   
+    
     
 
 
-}
+
