@@ -21,7 +21,6 @@ searchInput.addEventListener("keypress", (e)=>{
 
 async function searchMeals() {
     const searchTerm = searchInput.value.trim();
-
     try{
     resultHeading.innerHTML=`<p>Searching for "${searchTerm}"...</p>`;
     //fetch meals from API
