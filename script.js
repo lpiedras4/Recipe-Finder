@@ -19,6 +19,8 @@ searchInput.addEventListener("keypress", (e)=>{
     if(e.key === "Enter") searchMeals();
 });
 
+mealsContainer.addEventListener("click", handleClickMeal);
+
 async function searchMeals() {
     const searchTerm = searchInput.value.trim();
     try{
@@ -59,9 +61,32 @@ function displayMeals(meals){
         </div>
         `
     }));
-//display meal details
+}
+//meal displayb after click
 async function handleClickMeal(e){
-    mealDetailsContent.innerHTML = `
+    const mealEl = e.target.closest(".meal"); //closest() walks up the DOM tree and finds the nearest parent with the class ".meal"
+    if(!mealEl)return; //if .meal doesn´t exist, the function stops immediately
+
+    const mealId = mealEl.getAttribute("data-meal-id"); //this function gets the attribute meal ID for lookup
+
+    try{
+        const response = await fetch(`${LOOKUP_URL}${mealId}`);
+        const data = await response.json();
+
+        if(data.meals && data.meals[0]){ //if statement to ensure API returned meals and at least one meal exists
+            const meal = data.meals[0];
+
+            const ingredients = [];
+            for(let i= 1; i<=20 ;i++){
+                if(meal[`strIngredients${i}`] && meal[`strIngredients${i}`].trim() !==""){ //if-statement to ensure value isn´t null, undefined or false
+                    ingredients.push({
+                        ingredients:meal[`strIngredients${i}`], measure:meal[`strMeasure${i}`]
+                    });
+                }
+            }
+        }
+
+         mealDetailsContent.innerHTML = `
         <img src="${meal.strMealThumb}" alt="${meal.strMeal}" class = "meal-details-img">
         <h2 class="meal-details-title">${meal.strMeal}</h2>
         <div class="meal-details-category">
@@ -77,14 +102,21 @@ async function handleClickMeal(e){
             ).join("")}
             </ul>
         </div>
-        ${meal.strYoutube ? `<a href ="${meal.strYoutube}" target="_blank" class="youtbe-link">
+        ${meal.strYoutube ? `<a href ="${meal.strYoutube}" target="_blank" class="youtube-link">
         <i class="fab fa-youtube"></i> Watch Video
         </a>
         `: ""
         }
         `;
+
+    }catch(error){
+        errorContainer.textContent = "Could not load recipe details. Please try again later";
+        errorContainer.classList.remove("hidden");
     }
+}
+   
+    
     
 
 
-}
+

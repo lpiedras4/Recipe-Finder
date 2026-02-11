@@ -128,3 +128,12 @@ background-color: whitesmoke;
 #meal-details{
 
 }
+#error-container{
+    background-color: rgb(252, 211, 107);
+    border: 1px solid var(--primary);
+    color: black;
+    padding: 1rem;
+    border-radius: 15px;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
