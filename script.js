@@ -15,11 +15,12 @@ const LOOKUP_URL=`${API_LINK}lookup.php?i=`;
 
 searchBtn.addEventListener("click", searchMeals);
 
+mealsContainer.addEventListener("click", handleClickMeal);
+
 searchInput.addEventListener("keypress", (e)=>{
     if(e.key === "Enter") searchMeals();
 });
 
-mealsContainer.addEventListener("click", handleClickMeal);
 
 async function searchMeals() {
     const searchTerm = searchInput.value.trim();
@@ -62,7 +63,7 @@ function displayMeals(meals){
         `
     }));
 }
-//meal displayb after click
+//meal display after click
 async function handleClickMeal(e){
     const mealEl = e.target.closest(".meal"); //closest() walks up the DOM tree and finds the nearest parent with the class ".meal"
     if(!mealEl)return; //if .meal doesn´t exist, the function stops immediately
@@ -93,6 +94,10 @@ async function handleClickMeal(e){
         <span>${meal.strCategory} || "Uncategorized" </span>
         </div>
         <div class="meal-details-instructions">
+        <h3> Instructions</h3>
+        <p> ${meal.strInstructions}</p>
+        </div>
+        <div class="meal-details-ingredients">
             <h3>Ingredients</h3>    
             <ul class="ingredients-list">
             ${ingredients.map(
@@ -108,10 +113,12 @@ async function handleClickMeal(e){
         `: ""
         }
         `;
+        mealDetails.scrollIntoView({behavior:"smooth"});
 
     }catch(error){
         errorContainer.textContent = "Could not load recipe details. Please try again later";
         errorContainer.classList.remove("hidden");
+     
     }
 }
    

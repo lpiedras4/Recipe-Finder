@@ -132,6 +132,7 @@ background-color: whitesmoke;
     background-color: rgb(252, 211, 107);
     border: 1px solid var(--primary);
     color: black;
+    font-weight: 600;
     padding: 1rem;
     border-radius: 15px;
     text-align: center;
