@@ -7,6 +7,7 @@ const resultHeading = document.getElementById("result-heading");
 const errorContainer=document.getElementById("error-container");
 const mealDetails = document.getElementById("meal-details");
 const mealDetailsContent = document.querySelector(".meal-details-content");
+const backButton = document.getElementById("back-btn");
 
 //api urls
 const API_LINK = "https://www.themealdb.com/api/json/v1/1/";
@@ -16,6 +17,8 @@ const LOOKUP_URL=`${API_LINK}lookup.php?i=`;
 searchBtn.addEventListener("click", searchMeals);
 
 mealsContainer.addEventListener("click", handleClickMeal);
+
+backButton.addEventListener("click", () => mealDetails.classList.add("hidden"));
 
 searchInput.addEventListener("keypress", (e)=>{
     if(e.key === "Enter") searchMeals();
