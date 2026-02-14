@@ -6,7 +6,7 @@ const mealsContainer = document.getElementById("meals");
 const resultHeading = document.getElementById("result-heading");
 const errorContainer=document.getElementById("error-container");
 const mealDetails = document.getElementById("meal-details");
-const mealDetailsContent = document.querySelector("meal-details-content");
+const mealDetailsContent = document.querySelector(".meal-details-content");
 
 //api urls
 const API_LINK = "https://www.themealdb.com/api/json/v1/1/";
@@ -24,8 +24,16 @@ searchInput.addEventListener("keypress", (e)=>{
 
 async function searchMeals() {
     const searchTerm = searchInput.value.trim();
+
+    if(!searchTerm){
+        errorContainer.textContent = "Please enter a valid search term";
+        errorContainer.classList.remove(hidden);
+        return;
+    }
+
     try{
     resultHeading.innerHTML=`<p>Searching for "${searchTerm}"...</p>`;
+    mealsContainer.innerHTML ="";
     //fetch meals from API
     const response = await fetch(`${SEARCH_URL}${searchTerm}`);
     const data = await response.json();
@@ -53,7 +61,7 @@ function displayMeals(meals){
     
     meals.forEach((meal =>{
         mealsContainer.innerHTML+=`
-        <div class="meal" data-meal-id="${meal.id}"> 
+        <div class="meal" data-meal-id="${meal.idMeal}"> 
             <img src="${meal.strMealThumb}" alt="${meal.strMeal}">
             <div class="meal-info"> 
             <h3 class="meal-title">${meal.strMeal}</h3>
@@ -79,19 +87,17 @@ async function handleClickMeal(e){
 
             const ingredients = [];
             for(let i= 1; i<=20 ;i++){
-                if(meal[`strIngredients${i}`] && meal[`strIngredients${i}`].trim() !==""){ //if-statement to ensure value isn´t null, undefined or false
+                if(meal[`strIngredient${i}`] && meal[`strIngredient${i}`].trim() !==""){ //if-statement to ensure value isn´t null, undefined or false
                     ingredients.push({
-                        ingredients:meal[`strIngredients${i}`], measure:meal[`strMeasure${i}`]
+                        ingredient:meal[`strIngredient${i}`], measure:meal[`strMeasure${i}`]
                     });
                 }
             }
-        }
-
-         mealDetailsContent.innerHTML = `
+              mealDetailsContent.innerHTML = `
         <img src="${meal.strMealThumb}" alt="${meal.strMeal}" class = "meal-details-img">
         <h2 class="meal-details-title">${meal.strMeal}</h2>
         <div class="meal-details-category">
-        <span>${meal.strCategory} || "Uncategorized" </span>
+        <span>${meal.strCategory || "Uncategorized"} </span>
         </div>
         <div class="meal-details-instructions">
         <h3> Instructions</h3>
@@ -113,12 +119,16 @@ async function handleClickMeal(e){
         `: ""
         }
         `;
+        mealDetails.classList.remove("hidden");
         mealDetails.scrollIntoView({behavior:"smooth"});
 
+        }
+
+       
     }catch(error){
+        console.error("Error loading meal details:", error)
         errorContainer.textContent = "Could not load recipe details. Please try again later";
         errorContainer.classList.remove("hidden");
-     
     }
 }
    

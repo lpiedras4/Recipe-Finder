@@ -126,8 +126,87 @@ background-color: whitesmoke;
 }
 
 #meal-details{
-
+background: #ffffff;
+border-radius: 8px;
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+padding: 1.5rem;
+margin:2rem 0;
 }
+
+.meal-details-content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.meal-details-title{
+    font-size: 1.8rem;
+    color: black;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+.meal-details-img{
+    width: 100%;
+    max-width: 400px;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+}
+
+.meal-details-category span{
+    background-color: rgb(255, 206, 73);
+    padding: 24px 12px;
+    border-radius:20px;
+    font-size: 0.9rem;
+}
+
+.meal-details-instructions{
+    line-height:1.7;
+    margin-bottom: 1.5rem;
+}
+
+.meal-details-instructions{
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+}
+
+.ingredients-list{
+    list-style-type: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 8px;
+    margin-bottom: 1.5rem;
+    width: 100%;
+}
+
+.ingredients-list li{
+    display: flex;
+    align-items: center;
+    padding: 6px 10px;
+    background-color: rgb(247, 213, 111);
+    border-radius: 8px;
+    font-size: 0.9rem;
+}
+
+.ingredients-list li i{
+    color:#0ba360;
+    margin-right: 8px;
+}
+
+.youtube-link{
+    display: inline-block;
+    background-color: #ff0000;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+}
+
+.youtube-link i{
+    margin-right: 8px;
+}
+
 #error-container{
     background-color: rgb(252, 211, 107);
     border: 1px solid var(--primary);
@@ -137,4 +216,8 @@ background-color: whitesmoke;
     border-radius: 15px;
     text-align: center;
     margin-bottom: 1.5rem;
+}
+
+.hidden{
+    display: none;
 }
